@@ -31,9 +31,9 @@ const Layout: FC = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <span className="nav-link">
-                      Welcome, {user?.firstName} {user?.secondName}
-                    </span>
+                    <Link className="nav-link" to="/organizations">
+                      Children
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <button className="nav-link btn btn-link" onClick={handleLogout}>
@@ -43,6 +43,7 @@ const Layout: FC = () => {
                 </>
               ) : (
                 <>
+                  {/* Показываем ссылки на Login и Register только для неавторизованных пользователей */}
                   <li className="nav-item">
                     <Link className="nav-link" to="/login">
                       Login

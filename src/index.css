@@ -1,10 +1,10 @@
 :root {
-  --background: #fef6e4; /* Светлый теплый фон */
-  --surface: #fae1dd; /* Нежный розовый для карточек */
-  --text: #172c66; /* Темно-синий текст (хороший контраст) */
-  --primary: #ff8ba7; /* Нежно-розовый акцент */
-  --secondary: #f4a261; /* Оранжевый (энергичный, но не агрессивный) */
-  --border: #ffb4a2; /* Мягкие границы */
+  --background: #eb7dc1;
+  --surface: #93b4d3; 
+  --text: #1441bb; 
+  --primary: #c46ab8; 
+  --secondary: #b87b49; 
+  --border: #ffb4a2;
   --shadow: rgba(0, 0, 0, 0.2);
 }
 

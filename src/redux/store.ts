@@ -5,7 +5,7 @@ import organizationReducer from "./organizationSlice";
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    organizations: organizationReducer,
+    organizations: organizationReducer
   },
 });
 

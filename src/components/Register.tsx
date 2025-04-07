@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { registerUser } from "../redux/authSlice";
@@ -11,8 +11,15 @@ const Register: FC = () => {
   const [secondName, setSecondName] = useState("");
   const [tel, setTel] = useState("");
   const dispatch: AppDispatch = useDispatch();
-  const { status, error } = useSelector((state: RootState) => state.auth);
+  const { status, error, token } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+
+  // Добавляем useEffect для отслеживания изменения token
+  useEffect(() => {
+    if (status === "success" && token) {
+      navigate("/organizations");
+    }
+  }, [status, token, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,11 +31,7 @@ const Register: FC = () => {
         secondName,
         tel,
       })
-    ).then((result) => {
-      if (result.meta.requestStatus === "fulfilled") {
-        navigate("/organizations");
-      }
-    });
+    );
   };
 
   return (

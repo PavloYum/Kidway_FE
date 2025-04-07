@@ -8,6 +8,7 @@ interface OrganizationState {
   status: "loading" | "success" | "error";
 }
 
+
 const initialState: OrganizationState = {
   organizations: [],
   status: "loading",
@@ -15,9 +16,8 @@ const initialState: OrganizationState = {
 
 export const fetchOrganizations = createAsyncThunk<
   IOrganization[],
-  void,
-  { state: RootState }
->("organizations/fetchOrganizations", async () => {
+  { state: RootState }>
+  ("organizations/fetchOrganizations", async () => {
   const response = await axiosInstance.get("/organizations");
   return response.data;
 });
@@ -25,8 +25,8 @@ export const fetchOrganizations = createAsyncThunk<
 export const addOrganization = createAsyncThunk<
   IOrganization,
   IOrganization,
-  { state: RootState }
->("organizations/addOrganization", async (organization) => {
+  { state: RootState }>
+  ("organizations/addOrganization", async (organization) => {
   const response = await axiosInstance.post("/organizations", organization);
   return response.data;
 });
@@ -34,18 +34,17 @@ export const addOrganization = createAsyncThunk<
 export const editOrganization = createAsyncThunk<
   IOrganization,
   { id: number; organization: IOrganization },
-  { state: RootState }
->("organizations/editOrganization", async ({ id, organization }) => {
+  { state: RootState }>
+  ("organizations/editOrganization", async ({ id, organization }) => {
   const response = await axiosInstance.put(`/organizations/${id}`, organization);
   return response.data;
 });
 
-// Исправлено: create购物Thunk заменено на createAsyncThunk
 export const deleteOrganization = createAsyncThunk<
   number,
   number,
-  { state: RootState }
->("organizations/deleteOrganization", async (id) => {
+  { state: RootState }>
+  ("organizations/deleteOrganization", async (id) => {
   await axiosInstance.delete(`/organizations/${id}`);
   return id;
 });

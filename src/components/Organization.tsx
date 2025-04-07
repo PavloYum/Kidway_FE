@@ -11,12 +11,15 @@ interface IProps {
   ) => void;
 }
 
-const Organization: FC<IProps> = ({ organization, index, handleOrganizationAction }) => {
+const Organization: FC<IProps> = ({ 
+  organization,
+  index,
+  handleOrganizationAction }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const nameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
-  const latRef = useRef<HTMLInputElement>(null);
-  const longRef = useRef<HTMLInputElement>(null);
+  // const latRef = useRef<HTMLInputElement>(null);
+  // const longRef = useRef<HTMLInputElement>(null);
   const photoRef = useRef<HTMLInputElement>(null);
   const categoryIdRef = useRef<HTMLInputElement>(null);
 
@@ -37,7 +40,7 @@ const Organization: FC<IProps> = ({ organization, index, handleOrganizationActio
               defaultValue={organization.description}
               placeholder="Description"
             />
-            <input
+            {/* <input
               className="form-control"
               ref={latRef}
               type="number"
@@ -50,29 +53,22 @@ const Organization: FC<IProps> = ({ organization, index, handleOrganizationActio
               type="number"
               defaultValue={organization.long}
               placeholder="Longitude"
-            />
+            /> */}
             <input
               className="form-control"
               ref={photoRef}
               defaultValue={organization.photo}
               placeholder="Photo URL"
             />
-            <input
-              className="form-control"
-              ref={categoryIdRef}
-              type="number"
-              defaultValue={organization.categoryId}
-              placeholder="Category ID"
-            />
-            <button
+              <button
               className="btn btn-primary btn-sm me-2"
               onClick={() => {
                 handleOrganizationAction("edit", index, {
                   id: organization.id,
                   name: nameRef.current!.value,
                   description: descriptionRef.current!.value,
-                  lat: Number(latRef.current!.value),
-                  long: Number(longRef.current!.value),
+                  // location: Number(latRef.current!.value),
+                  // long: Number(longRef.current!.value),
                   photo: photoRef.current!.value,
                   userId: organization.userId,
                   categoryId: Number(categoryIdRef.current!.value),
@@ -93,7 +89,7 @@ const Organization: FC<IProps> = ({ organization, index, handleOrganizationActio
           <div className="d-flex flex-column align-items-center">
             <p className="mb-0">Name: {organization.name}</p>
             <p className="mb-0">Description: {organization.description}</p>
-            <p className="mb-0">Location: ({organization.lat}, {organization.long})</p>
+            {/* <p className="mb-0">Location: ({organization.lat}, {organization.long})</p> */}
             <p className="mb-0">Category ID: {organization.categoryId}</p>
             <div className="d-flex mt-2">
               <button

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, JSX } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Navigate } from "react-router-dom";
@@ -9,13 +9,13 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }) => {
   const { token } = useSelector((state: RootState) => state.auth);
+  console.log("ProtectedRoute: token =", token); // Логируем токен
 
   if (!token) {
     return <Navigate to="/login" replace />;
   }
 
-  // Если токен присутствует, возвращаем дочерний компонент (например, OrganizationList)
-  return children; // Вот эта строка
+  return children;
 };
 
 export default ProtectedRoute;

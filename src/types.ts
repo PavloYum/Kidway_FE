@@ -9,14 +9,13 @@ export interface IUser {
 }
 
 export interface IOrganization {
-  id: number;
+  id?: number;
   name: string;
   description: string;
-  lat: number;
-  long: number;
-  photo: string;
+  location: string;
+  photo?: string;
   userId: number;
-  categoryId: number;
+  category: 1;
 }
 
 export interface IAuthResponse {

@@ -16,7 +16,7 @@ const initialState: UserState = {
 export const fetchUsers = createAsyncThunk<IUser[], void, { state: RootState }>(
   "users/fetchUsers",
   async () => {
-    const response = await axios.get("http://localhost:8080/api/users");
+    const response = await axios.get("/users");
     return response.data;
   }
 );
@@ -24,7 +24,7 @@ export const fetchUsers = createAsyncThunk<IUser[], void, { state: RootState }>(
 export const addUser = createAsyncThunk<IUser, IUser, { state: RootState }>(
   "users/addUser",
   async (user) => {
-    const response = await axios.post("http://localhost:8080/api/users", user);
+    const response = await axios.post("/users", user);
     return response.data;
   }
 );
@@ -34,14 +34,14 @@ export const editUser = createAsyncThunk<
   { id: number; user: IUser },
   { state: RootState }
 >("users/editUser", async ({ id, user }) => {
-  const response = await axios.put(`http://localhost:8080/api/users/${id}`, user);
+  const response = await axios.put(`/users/${id}`, user);
   return response.data;
 });
 
 export const deleteUser = createAsyncThunk<number, number, { state: RootState }>(
   "users/deleteUser",
   async (id) => {
-    await axios.delete(`http://localhost:8080/api/users/${id}`);
+    await axios.delete(`/users/${id}`);
     return id;
   }
 );

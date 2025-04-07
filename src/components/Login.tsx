@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { loginUser } from "../redux/authSlice";
@@ -8,16 +8,18 @@ const Login: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch: AppDispatch = useDispatch();
-  const { status, error } = useSelector((state: RootState) => state.auth);
+  const { status, error, token } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (status === "success" && token) {
+      navigate("/organizations");
+    }
+  }, [status, token, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password })).then((result) => {
-      if (result.meta.requestStatus === "fulfilled") {
-        navigate("/organizations");
-      }
-    });
+    dispatch(loginUser({ email, password }));
   };
 
   return (

@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../utils/axiosConfig";
-import { IAuthResponse, ILoginCredentials, IRegisterCredentials, IUser } from "../types";
+import {
+  IAuthResponse,
+  ILoginCredentials,
+  IRegisterCredentials,
+  IUser,
+} from "../types";
 import { RootState } from "./store";
 
 interface AuthState {
@@ -26,7 +31,9 @@ export const registerUser = createAsyncThunk<
     const response = await axiosInstance.post("/users/register", credentials);
     return response.data;
   } catch (error: any) {
-    return rejectWithValue(error.response?.data?.message || "Registration failed");
+    return rejectWithValue(
+      error.response?.data?.message || "Registration failed"
+    );
   }
 });
 
@@ -36,7 +43,9 @@ export const loginUser = createAsyncThunk<
   { state: RootState }
 >("auth/loginUser", async (credentials, { rejectWithValue }) => {
   try {
-    const response = await axiosInstance.post("/users/login", credentials);
+    const response = await axiosInstance.post("/users/login", credentials, {
+      headers: { "Content-Type": "application/json" },
+    });
     return response.data;
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.message || "Login failed");
@@ -47,7 +56,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // Исправлено: убрали символ ⟉
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -63,12 +71,15 @@ const authSlice = createSlice({
         state.status = "loading";
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state, action: PayloadAction<IAuthResponse>) => {
-        state.status = "success";
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        localStorage.setItem("token", action.payload.token);
-      })
+      .addCase(
+        registerUser.fulfilled,
+        (state, action: PayloadAction<IAuthResponse>) => {
+          state.status = "success";
+          state.user = action.payload.user;
+          state.token = action.payload.token;
+          localStorage.setItem("token", action.payload.token);
+        }
+      )
       .addCase(registerUser.rejected, (state, action) => {
         state.status = "error";
         state.error = action.payload as string;
@@ -78,12 +89,15 @@ const authSlice = createSlice({
         state.status = "loading";
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<IAuthResponse>) => {
-        state.status = "success";
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        localStorage.setItem("token", action.payload.token);
-      })
+      .addCase(
+        loginUser.fulfilled,
+        (state, action: PayloadAction<IAuthResponse>) => {
+          state.status = "success";
+          state.user = action.payload.user;
+          state.token = action.payload.token;
+          localStorage.setItem("token", action.payload.token);
+        }
+      )
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "error";
         state.error = action.payload as string;
